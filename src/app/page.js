@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -5,6 +6,9 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <h1 className={styles.titulo}>Meu título</h1>
+        <p>Página pricipal</p>
+
+      <Image src='/image.png' alt="IFRO" width={300} height={300} loading="eager"/>
       </main>
     </div>
   );
