@@ -1,10 +1,22 @@
+'use client'; 
 import Link from 'next/link'
-import styles from './Header.module.css'
+import styles from './Header.module.css';
+import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Header() {
+    const menu = ['/', '/sobre', '/contato'];
+    const [srcMenu, setSrcMenu] = useState('/icons/open.svg');
 
-    const menu = ['/', '/sobre', '/contato']
     return (
+        <div> 
+            <button type='button' onClick={() => setSrcMenu(srcMenu === '/icons/open.svg' ? '/icons/close.svg' : '/icons/open.svg')}>
+            <Image src={srcMenu} width={30} height={30} alt='menu' />
+            </button>
+
+            { 
+                srcMenu === '/icons/close.svg' && 
+
         <header>
             <nav>
                 <ul>
@@ -14,5 +26,7 @@ export default function Header() {
                 </ul>
             </nav>
         </header>
+            }
+        </div>
     )
 }
