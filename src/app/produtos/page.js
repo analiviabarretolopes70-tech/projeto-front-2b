@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from "react"
+import styles from "./page.module.css";
 
 export default function Produtos(){
 
@@ -20,6 +21,7 @@ export default function Produtos(){
       console.log(e.message);
     }
   }
+   fetchProdutos();
   }, []);
 
     return (
@@ -28,9 +30,44 @@ export default function Produtos(){
            prods === null ? 
            <p>Carregando lista de produtos...</p> :
              <div>
-              <h2>Lista de produtos</h2>
-             </div>
 
+
+              <h2>Lista de produtos</h2>
+              <table className={styles.tbl}>
+                <thead>
+                  <tr>
+                    <th> ID </th>
+                    <th> Nome </th>
+                    <th> Descricao </th>
+                    <th> Categoria </th>
+                    <th> Estoque </th>
+                    <th> Preço </th>
+                  </tr>
+                </thead>
+                     <tbody>
+                 {
+                 prods.map((prod) => (
+                     <tr key={prod.id}>
+                        <td>{prod.id}</td>
+                        <td>{prod.nome}</td>
+                        <td>{prod.descricao}</td>
+                        <td>{prod.categoria_id}</td>
+                        <td>{prod.quantidade_estoque}</td>
+                        <td>{prod.preco}</td>
+                       </tr>
+               ))
+           }
+              </tbody>
+              </table>
+                {
+              prods.map((prod) => (
+             <p key={prod.id}>{prod.nome}</p>
+         ))
+     }
+
+
+             </div>
+             
        }
          </div>
     )
