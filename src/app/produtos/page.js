@@ -5,8 +5,10 @@ import styles from "./page.module.css";
 export default function Produtos(){
 
      const [prods, setProds] = useState(null);
+     const [categorias, setCategorias] = useState(null);
+     
 
-  useEffect( () => {
+useEffect( () => {
     const fetchProdutos = async () => {
     try { 
     const response = await fetch('https://stock.dev.vilhena.ifro.edu.br/api/produtos');
@@ -24,6 +26,28 @@ export default function Produtos(){
    fetchProdutos();
   }, []);
 
+useEffect( () => {
+    const fetchCategorias = async () => {
+    try { 
+    const response = await fetch('https://stock.dev.vilhena.ifro.edu.br/api/categorias');
+    console.log(response); //só para decoração
+    if(!response.ok) {
+      throw new Error (`Erro ao buscar categorias ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log(data); //como salvar data no estado?
+    setCategorias(data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+   fetchCategorias();
+  }, []);
+
+  const getNomeCategoria = (id_categoria) => {
+        const categoria = categorias?.find(cat => cat.id === id_categoria);
+        return categoria? categoria.nome : 'Categoria Indisponível';
+  }
     return (
          <div>
           {
