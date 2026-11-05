@@ -1,11 +1,13 @@
 'use client';
 import { useEffect, useState } from "react"
 import styles from "./page.module.css";
+import CardProd from '@/components/CardProd';
 
 export default function Produtos(){
 
      const [prods, setProds] = useState(null);
      const [categorias, setCategorias] = useState(null);
+     const [prodSelected, setProdSelected] =useState(null);
      
 
 useEffect( () => {
@@ -71,11 +73,14 @@ useEffect( () => {
                      <tbody>
                  {
                  prods.map((prod) => (
-                     <tr key={prod.id}>
+                     <tr key={prod.id}
+                     onClick={() => 
+                     setProdSelected(prod)}>
                         <td>{prod.id}</td>
                         <td>{prod.nome}</td>
                         <td>{prod.descricao}</td>
-                        <td>{prod.categoria_id}</td>
+                        <td>{getNomeCategoria
+                          (prod.categoria_id)}</td>
                         <td>{prod.quantidade_estoque}</td>
                         <td>{prod.preco}</td>
                        </tr>
@@ -83,6 +88,9 @@ useEffect( () => {
            }
               </tbody>
               </table>
+
+                {prodSelected && <CardProd />}
+
                 {
               prods.map((prod) => (
              <p key={prod.id}>{prod.nome}</p>
