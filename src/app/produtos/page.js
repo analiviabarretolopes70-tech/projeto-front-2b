@@ -50,6 +50,9 @@ useEffect( () => {
         const categoria = categorias?.find(cat => cat.id === id_categoria);
         return categoria? categoria.nome : 'Categoria Indisponível';
   }
+
+     const filtro = prods?.filter( p => p.nome.includes(busca))
+
     return (
          <div>
           {
@@ -59,6 +62,12 @@ useEffect( () => {
 
 
               <h2>Lista de produtos</h2>
+              {filtro && filtro.map( f => (
+                <p key={f.id}>{f.nome}</p>
+              ))}
+               <input type="text" placeholder="Faça sua busca" value={busca} onChange={(e) => {setBusca(e.target.
+                value) }} />
+              
               <table className={styles.tbl}>
                 <thead>
                   <tr>
@@ -88,8 +97,8 @@ useEffect( () => {
            }
               </tbody>
               </table>
-
-                {prodSelected && <CardProd />}
+                {prodSelected && <CardProd
+                 produto={prodSelected} />}
 
                 {
               prods.map((prod) => (
